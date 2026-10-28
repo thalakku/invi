@@ -637,12 +637,7 @@ body.opened .pair{opacity:1}
     </div>
   </section>
 
-  <section id="events" class="reveal wide">
-    <h2 class="title foil glow">The Celebrations</h2>
-    <svg class="divider" aria-hidden="true"><use href="#divider"/></svg>
-    <div class="events" id="eventList"></div>
-    <div class="dress" id="dress"></div>
-  </section>
+  
 
   <section id="venue" class="reveal">
     <h2 class="title foil glow">The Venue</h2>
@@ -946,9 +941,8 @@ $("hashtag").textContent = CONFIG.hashtag || "";
 $("rsvpBy").textContent = CONFIG.rsvpBy ? `Kindly reply by ${CONFIG.rsvpBy}` : "";
 if (!CONFIG.rsvpBy) $("rsvpBy").hidden = true;
 if (!CONFIG.hashtag) $("hashtag").hidden = true;
-if (!CONFIG.dressCode) $("dress").hidden = true;
 if (!String(CONFIG.whatsappNumber || "").replace(/\D/g, "")) $("rsvp").hidden = true;
-if (CONFIG.events.length === 1) document.querySelector("#events .title").textContent = "The Ceremony";
+
 
 document.querySelectorAll(".frame").forEach((f) => f.insertAdjacentHTML("afterbegin",
   ["tl", "tr", "bl", "br"].map((c) => `<svg class="corner ${c}" aria-hidden="true"><use href="#corner"/></svg>`).join("")));
@@ -958,21 +952,8 @@ $("dDay").textContent = target.toLocaleDateString("en-IN", { day: "numeric", tim
 $("dMon").textContent = target.toLocaleDateString("en-IN", { month: "long", year: "numeric", timeZone: TZ });
 $("dTime").textContent = `${target.toLocaleDateString("en-IN", { weekday: "long", timeZone: TZ })}, ${upAmPm(target.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", timeZone: TZ }))}`;
 
-$("eventList").innerHTML = CONFIG.events.map((e) => `
-  <article class="event">
-    <svg class="ev-icon" aria-hidden="true"><use href="#i-${esc(e.icon || "star")}"/></svg>
-    <h3 class="ev-title foil">${esc(e.title)}</h3>
-    <p class="ev-date">${esc(e.date)}</p>
-    <p class="ev-time">${esc(e.time)}</p>
-    <span class="ev-rule" aria-hidden="true"></span>
-    <p class="ev-place">${esc(e.place)}</p>
-    ${e.note ? `<p class="ev-note">${esc(e.note)}</p>` : ""}
-  </article>`).join("");
 
-if (CONFIG.dressCode) {
-  $("dress").innerHTML = `<h3 class="dress-title foil">Dress code</h3><p>${esc(CONFIG.dressCode.text)}</p>
-    <div class="swatches">${(CONFIG.dressCode.colors || []).map((c) => `<i style="background:${esc(c)}"></i>`).join("")}</div>`;
-}
+
 
 /* Venue */
 const mapQ = encodeURIComponent(CONFIG.venue.mapQuery || `${CONFIG.venue.name}, ${CONFIG.venue.address}`);
