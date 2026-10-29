@@ -259,22 +259,8 @@ body.opened .enter{animation:focusIn 1.3s cubic-bezier(.2,.7,.2,1) forwards;anim
 .sep::after{content:"";position:absolute;top:42%;left:50%;width:5px;height:5px;background:var(--gold);transform:translate(-50%,-50%) rotate(45deg)}
 
 /* Events */
-.events{display:grid;gap:1.6rem;margin-top:.4rem}
-@media (min-width:700px){.events{grid-template-columns:repeat(auto-fit,minmax(270px,380px));justify-content:center}}
-.events>.event{width:100%;max-width:400px;margin:0 auto}
 .event{position:relative;padding:3.3rem 1.6rem 2.3rem;border-radius:999px 999px 6px 6px;background:var(--panel);border:1px solid var(--line);box-shadow:0 30px 80px rgba(0,0,0,.45)}
 .event::before{content:"";position:absolute;inset:7px;border:1px solid var(--line-soft);border-radius:inherit;pointer-events:none}
-.ev-icon{display:block;width:46px;height:46px;margin:0 auto .5rem;color:var(--gold)}
-.ev-title{font-family:var(--script);font-weight:400;font-size:2.15rem;line-height:1.15;display:inline-block;padding:0 .14em}
-.ev-date{margin-top:.5rem}
-.ev-time{font-size:1.35rem;color:var(--gold-hi)}
-.ev-rule{display:block;width:44px;height:1px;background:var(--gold);margin:.9rem auto}
-.ev-place{font-size:1.1rem}
-.ev-note{font-style:italic;color:var(--lavender);font-size:1rem;margin-top:.3rem}
-.dress{margin-top:3.2rem}
-.dress-title{font-family:var(--script);font-weight:400;font-size:2.1rem;display:inline-block;padding:0 .14em}
-.swatches{display:flex;gap:.8rem;justify-content:center;margin-top:.9rem}
-.swatches i{width:30px;height:30px;border-radius:50%;box-shadow:0 0 0 2px #120a2a,0 0 0 3px var(--gold)}
 
 /* Venue */
 .venue-card{max-width:560px;margin:0 auto;padding:3.2rem 1.5rem 2.6rem}
@@ -426,27 +412,6 @@ body.opened .pair{opacity:1}
         <circle cx="24.4" cy="24.4" r="1.6"/><circle cx="-24.4" cy="24.4" r="1.6"/><circle cx="24.4" cy="-24.4" r="1.6"/><circle cx="-24.4" cy="-24.4" r="1.6"/>
         <circle r="3"/>
       </g>
-    </symbol>
-    <symbol id="i-rings" viewBox="0 0 48 48">
-      <g fill="none" stroke="currentColor" stroke-width="1.4">
-        <circle cx="19" cy="29" r="11"/>
-        <circle cx="29" cy="29" r="11"/>
-        <path d="M29 18l-4-4.5 4-4.5 4 4.5z"/>
-        <path d="M25 13.5h8"/>
-      </g>
-      <path d="M39 6l1 2.6 2.6 1-2.6 1-1 2.6-1-2.6-2.6-1 2.6-1z" fill="currentColor"/>
-    </symbol>
-    <symbol id="i-lantern" viewBox="0 0 48 48">
-      <g fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round">
-        <path d="M15 11h18l-2.5 25h-13z"/>
-        <path d="M21 11l-1 25M27 11l1 25" stroke-opacity=".5"/>
-        <path d="M17.5 36h13"/>
-        <path d="M24 4v3M38 13l2-2M10 13l-2-2"/>
-      </g>
-      <path d="M24 33c-2-2-2-4.5 0-7 2 2.5 2 5 0 7z" fill="currentColor" fill-opacity=".6"/>
-    </symbol>
-    <symbol id="i-star" viewBox="0 0 48 48">
-      <path d="M24 6l4 14 14 4-14 4-4 14-4-14-14-4 14-4z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
     </symbol>
     <symbol id="i-pin" viewBox="0 0 48 48">
       <g fill="none" stroke="currentColor" stroke-width="1.4">
@@ -637,8 +602,6 @@ body.opened .pair{opacity:1}
     </div>
   </section>
 
-  
-
   <section id="venue" class="reveal">
     <h2 class="title foil glow">The Venue</h2>
     <svg class="divider" aria-hidden="true"><use href="#divider"/></svg>
@@ -718,10 +681,13 @@ body.opened .pair{opacity:1}
         <path d="M0 252C260 214 520 186 720 182C930 178 1170 206 1440 238V320H0Z" fill="url(#hillFront)"/>
         <path d="M0 252C260 214 520 186 720 182C930 178 1170 206 1440 238" fill="none" stroke="#ffcf8a" stroke-opacity=".35" stroke-width="1.4" vector-effect="non-scaling-stroke"/>
       </svg>
-      <svg class="couple" id="couple" viewBox="0 0 240 300" role="img" aria-label="A bride and groom holding hands under the lanterns">
+      <svg class="couple" id="couple" viewBox="0 0 240 300" role="img" aria-label="An elegant couple holding hands under the lanterns">
 <defs>
-  <linearGradient id="pallu" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e1656"/><stop offset="1" stop-color="#1e0e3c"/></linearGradient>
   <linearGradient id="silG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#21103f"/><stop offset=".55" stop-color="#140a2a"/><stop offset="1" stop-color="#0c0619"/></linearGradient>
+  <linearGradient id="trainG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1b0d38"/><stop offset="1" stop-color="#0a0516"/></linearGradient>
+  <linearGradient id="veilG" x1=".2" y1="0" x2=".8" y2="1"><stop offset="0" stop-color="#f1e6ff" stop-opacity=".30"/><stop offset=".55" stop-color="#e4d4ff" stop-opacity=".14"/><stop offset="1" stop-color="#e4d4ff" stop-opacity=".02"/></linearGradient>
+  <radialGradient id="glowG" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#ffd590" stop-opacity=".20"/><stop offset=".6" stop-color="#ffc877" stop-opacity=".07"/><stop offset="1" stop-color="#ffc877" stop-opacity="0"/></radialGradient>
+  <linearGradient id="floorG" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d6b25e" stop-opacity="0"/><stop offset=".5" stop-color="#ffd590" stop-opacity=".55"/><stop offset="1" stop-color="#d6b25e" stop-opacity="0"/></linearGradient>
   <filter id="silRim" x="-15%" y="-15%" width="130%" height="130%">
     <feOffset in="SourceAlpha" dx=".4" dy="2.2" result="off"/>
     <feComposite in="SourceAlpha" in2="off" operator="out" result="top"/>
@@ -732,50 +698,129 @@ body.opened .pair{opacity:1}
     <feFlood flood-color="#d6b25e" flood-opacity=".22"/><feComposite in2="edge" operator="in" result="edgeGold"/>
     <feMerge><feMergeNode in="edgeGold"/><feMergeNode in="SourceGraphic"/><feMergeNode in="rimSoft"/></feMerge>
   </filter>
+  <path id="spk" d="M0 -2.6L.7 -.7L2.6 0L.7 .7L0 2.6L-.7 .7L-2.6 0L-.7 -.7Z"/>
 </defs>
+
+<!-- warm halo behind the pair -->
+<ellipse cx="128" cy="170" rx="118" ry="128" fill="url(#glowG)"/>
+
+<!-- cathedral veil, sheer and long -->
+<path d="M172 52C188 64 203 102 213 151C221 191 228 243 232 291H204C201 241 193 191 182 148C175 115 167 81 161 62Z" fill="url(#veilG)"/>
+<g fill="none" stroke="#efe3ff" stroke-opacity=".30" stroke-linecap="round">
+  <path d="M172 52C188 64 203 102 213 151C221 191 228 243 232 291" stroke-width=".9"/>
+  <path d="M161 62C167 81 175 115 182 148C193 191 201 241 204 291" stroke-width=".6"/>
+  <path d="M176 72C186 102 195 146 201 190C206 226 210 262 212 288" stroke-width=".45" stroke-opacity=".5"/>
+  <path d="M168 84C176 116 184 158 190 200C195 234 198 266 199 288" stroke-width=".4" stroke-opacity=".4"/>
+</g>
+<g fill="none" stroke="#ffe3ad" stroke-opacity=".45" stroke-width=".55">
+  <path d="M204 287q3.5 -6.5 7 0q3.5 -6.5 7 0q3.5 -6.5 7 0q3.5 -6.5 7 0"/>
+  <path d="M213 151q4 -3 5.5 3q1.5 6 5 4.5"/>
+</g>
+<g fill="#ffe8bd" fill-opacity=".45"><circle cx="196" cy="140" r=".7"/><circle cx="206" cy="178" r=".6"/><circle cx="214" cy="222" r=".7"/><circle cx="222" cy="262" r=".6"/><circle cx="190" cy="206" r=".6"/><circle cx="200" cy="248" r=".7"/></g>
+
+<!-- the train of her gown, sweeping behind -->
+<path d="M178 150C190 180 199 216 208 248C213 267 219 280 225 290H198C194 272 188 248 182 220C177 196 175 170 176 152Z" fill="url(#trainG)"/>
+<g fill="none" stroke="#d6b25e" stroke-opacity=".4" stroke-linecap="round">
+  <path d="M178 150C190 180 199 216 208 248C213 267 219 280 225 290" stroke-width=".8"/>
+  <path d="M184 176C192 206 200 242 208 274" stroke-width=".45" stroke-opacity=".6"/>
+</g>
+
 <g filter="url(#silRim)" fill="url(#silG)">
-  <g transform="rotate(6 98 62)">
-    <path d="M86 44C86 31 92 27 99 27C107 27 112 32 112 44C112 52 109 58 105 61H94C89 58 86 52 86 44Z"/>
-    <path d="M86.6 44.5c-3.2 0-3.8 6.4 0 8z"/><path d="M111.4 44.5c3.2 0 3.8 6.4 0 8z"/>
+  <!-- him: head and softly swept hair -->
+  <g transform="rotate(3 95 40)">
+    <path d="M84 38C84 29 88.5 23 95 23C101.5 23 106 29 106 38C106 45 103 50 99.5 52H90.5C87 50 84 45 84 38Z"/>
+    <path d="M83.4 36.5C82.4 25.5 88 19 95.2 19C102.8 19 107.6 25 106.6 34.6C106 30 103.6 26.6 100 25C95.6 23 90.4 24 87.4 27.2C85.4 29.4 84 32.6 83.4 36.5Z"/>
+    <path d="M83.6 38.4c-2.6 0-3 5.2 0 6.6zM106.4 38.4c2.6 0 3 5.2 0 6.6z"/>
   </g>
-  <path d="M93 58H104L106 70H91Z"/>
-  <path d="M91 68C84 70 74 72 69 77C64 81 62 88 62 96C63 112 66 130 69 146C70 154 71 160 71 166H125C125 160 126 154 127 146C130 130 133 112 134 96C134 88 132 81 127 77C122 72 112 70 106 68Z"/>
-  <path d="M63 92C58 104 56 120 57 136C57 146 58 156 60 166C61 172 62 177 64 180C66 183 70 181 69 176C68 166 68 150 69 138C69 126 70 112 71 104Z"/>
-    <path d="M71 162H125C126 200 127 240 129 284H67C69 240 70 200 71 162Z"/>
-  <path d="M74 284h16l1 5H73zM106 284h16l1 5h-18z"/>
-  <g transform="rotate(-9 162 86)">
-    <path d="M151 68C151 57 156 52 162 52C168 52 173 57 173 68C173 75 170 80 166 83H158C154 80 151 75 151 68Z"/>
-    <ellipse cx="162" cy="84" rx="8" ry="6.5"/>
+  <path d="M91 50H99L100 62H90Z"/>
+  <!-- him: tailored dinner jacket, nipped at the waist -->
+  <path d="M92 59C84 61 77 64 73 69C70 73 69.5 78 71 86C74 102 78 116 79 130C80 144 79 158 78 168H112C111 158 110 144 111 130C112 116 116 102 119 86C120.5 78 120 73 117 69C113 64 106 61 98 59Z"/>
+  <!-- him: outer arm -->
+  <path d="M73 69C68 80 65.5 95 65 110C64.6 124 65 138 65.6 150C65 153 65.6 155.6 67.8 156.6C70.2 157.6 72.2 156 72 153.4C71.2 142.4 71 129.4 71.6 116.4C72.2 102.4 73.6 89.4 76 79Z"/>
+  <!-- him: inner arm, reaching to her -->
+  <path d="M117 69C122 80 125 95 126 110C126.8 123 127 136 127.4 148C128.4 150.6 128.2 153.2 126.2 154.6C123.8 156.2 121.4 154.8 121.4 152C121.4 141 121 129 120.4 117C119.6 103 118 90 115.4 80Z"/>
+  <!-- him: trousers -->
+  <path d="M78 166C79 196 80.5 232 81.5 266H92.5C92.8 232 93.2 196 93.6 166Z"/>
+  <path d="M96.4 166C96.8 196 97.2 232 97.5 266H108.5C109.5 232 111 196 112 166Z"/>
+  <!-- him: slim shoes -->
+  <path d="M81 262H93V274.5C93.2 278.6 91 281 87.2 281H79.6C76.2 281 75 278.8 75.8 276Z"/>
+  <path d="M97 262H109L111.4 276C112.2 278.8 111 281 107.6 281H100C96.2 281 94 278.6 94.2 274.5Z"/>
+
+  <!-- her: head with a low chignon -->
+  <g transform="rotate(-4 162 46)">
+    <path d="M152 44C152 35 156 29.5 162 29.5C168 29.5 172 35 172 44C172 51 169.2 56 166 57.6H158C154.8 56 152 51 152 44Z"/>
+    <path d="M151 46C149 34 154.6 27 161.8 27C169.6 27 174.4 32.6 173.6 41.6C173.3 45 172.8 48 174.2 50.4C177 53.4 180.2 56.8 180.8 61.2C181.6 66.6 178 70.8 172.8 70.4C168.2 70 165.4 66.2 166 61.6C166.5 57.6 168.8 54.6 170.4 51.4C171.6 47.8 171.6 44 171 40.8C169.6 34.4 166 31 161.4 31C156 31 152.4 35.4 151.8 42.4Z"/>
+    <path d="M152.6 42c-2.4 0-2.8 4.8 0 6.2z"/>
   </g>
-  <path d="M158 82H167L168 92H157Z"/>
-  <path d="M157 90C152 91 146 93 143 97C140 101 139 107 140 114C141 124 143 134 145 142H179C181 134 183 124 184 114C185 107 184 101 181 97C178 93 172 91 167 90Z"/>
-  <path d="M145 138H179C182 170 186 220 192 262C194 274 197 282 201 288H136C138 270 139 250 140 230C142 200 143 170 145 138Z"/>
-    <path d="M183 101C187 112 189 126 188 138C187 150 186 158 185 166C185 171 180 172 180 167C181 158 181 148 181 138C181 126 179 114 177 106Z"/>
+  <path d="M158 54H166L167 66H157Z"/>
+  <!-- her: bare shoulders above an off-shoulder neckline -->
+  <path d="M157.5 62C151 64.4 146.6 68 144 73C148.4 69.6 154.6 68 162 68C169.4 68 175.6 69.6 180 73C177.4 68 173 64.4 166.5 62Z"/>
+  <!-- her: fitted bodice to a narrow waist -->
+  <path d="M158 64C152 66 147.5 69 145 73C142.6 77 141.6 82 142 90C142.6 103 143.6 116 144 126C144.2 131 144 134.6 143.4 138H180.6C180 134.6 179.8 131 180 126C180.4 116 181.4 103 182 90C182.4 82 181.4 77 179 73C176.5 69 172 66 166 64Z"/>
+  <!-- her: soft off-shoulder drapes -->
+  <path d="M145.2 73C139.6 71.4 135 74 133.6 79C132.2 84.2 134.6 88.6 139.2 89.2C141.8 89.6 143.6 88.2 143.8 85.6Z"/>
+  <path d="M178.8 73C184.4 71.4 189 74 190.4 79C191.8 84.2 189.4 88.6 184.8 89.2C182.2 89.6 180.4 88.2 180.2 85.6Z"/>
+  <!-- her: outer arm -->
+  <path d="M186 86C189.4 97 191 110 191.6 123C192 134 192 143 192.2 150C193.2 152.8 192.6 155.4 190.4 156.6C188 157.9 185.8 156.4 185.8 153.6C185.8 143.6 185.4 132.6 184.8 122.6C184 109.6 182.8 98.6 180.4 89.6Z"/>
+  <!-- her: inner arm, reaching to him -->
+  <path d="M142.4 86C139 96 137.2 108 136.6 120C136.2 130 136.2 139 136.2 146C135.2 148.6 135.2 151.2 137.2 153C139.6 155.2 142.2 153.6 142.2 150.6C142.2 140.6 142.6 130.6 143.2 120.6C143.8 107.6 145.2 96.6 147.6 87.6Z"/>
+  <!-- their clasped hands -->
+  <path d="M123.6 150.5C126.8 147.6 131.8 147 136.4 148.8C140.6 150.5 142.2 154.2 140.6 157.6C138.8 161.6 132.4 163 127.4 160.4C123.4 158.3 121.8 153.8 123.6 150.5Z"/>
+  <!-- her: full gown falling from the waist -->
+  <path d="M143.4 138H180.6C183 166 186 200 191 234C194.6 258 199 276 205 288H122C128 276 133.6 258 136.6 234C139.6 206 141.6 170 143.4 138Z"/>
 </g>
-<!-- his shoulder cloth -->
-<path d="M72 76C76 74.5 81 74.5 85 76L91 146C88.5 149 83.5 149 81 146Z" fill="#26133f"/>
+
+<!-- his quiet couture detail: shawl lapel, bow tie, pocket square, side braid -->
 <g fill="none" stroke="#d6b25e" stroke-linecap="round">
-  <path d="M72 76L81 146M85 76L91 146" stroke-width=".9" stroke-opacity=".75"/>
-  <path d="M67.5 271.5C88 272.5 108 272.5 128.6 271.5" stroke-width="1.8"/>
-  <path d="M67.3 276C88 277 108 277 128.8 276" stroke-width=".7" stroke-opacity=".7"/>
-  <path d="M80 166C79 200 78 240 78 282M114 166C115 200 116 240 117 282" stroke-width=".6" stroke-opacity=".22"/>
+  <path d="M88 59.5C89 70 92 78.5 95 84.5C98 78.5 101 70 102 59.5" stroke-width="1" stroke-opacity=".8"/>
+  <path d="M85.5 61C87 72 90.5 81 95 88C99.5 81 103 72 104.5 61" stroke-width=".5" stroke-opacity=".4"/>
+  <path d="M95 90V150" stroke-width=".55" stroke-opacity=".28"/>
+  <path d="M72.4 150.5C74.4 151.4 76.4 151.4 78.2 150.5M116.8 149C118.8 149.9 120.8 149.9 122.6 149" stroke-width=".7" stroke-opacity=".6"/>
+  <path d="M79.6 164.5C86 166 90.6 166.6 95 166.6C99.4 166.6 104 166 110.4 164.5" stroke-width=".6" stroke-opacity=".35"/>
+  <path d="M80.2 172C81 202 82.2 236 83 264M109.8 172C109 202 107.8 236 107 264" stroke-width=".5" stroke-opacity=".3"/>
+  <path d="M82 258H92.6M97.8 258H108.4" stroke-width=".7" stroke-opacity=".45"/>
 </g>
-<!-- her pallu, sweeping from the left shoulder to the right hip -->
-<path d="M142 98C150 94 160 95 168 100C172 130 178 170 186 212C172 220 156 222 141 216C139 180 139 140 142 98Z" fill="url(#pallu)"/>
+<path d="M90.6 59.6L95 62.2L99.4 59.6V65.4L95 62.8L90.6 65.4Z" fill="#d6b25e" fill-opacity=".85"/>
+<path d="M104.5 85.5L110.5 84L109.4 88.4Z" fill="#d6b25e" fill-opacity=".7"/>
+<g fill="#d6b25e" fill-opacity=".85"><circle cx="95" cy="110" r="1.4"/><circle cx="95" cy="122" r="1.1"/></g>
+
+<!-- her couture detail: necklace, waist ribbon, pleats and lace hem -->
 <g fill="none" stroke="#d6b25e" stroke-linecap="round">
-  <path d="M168 100C172 130 178 170 186 212" stroke-width="1.7"/>
-  <path d="M164.5 101.5C168.5 131 174.5 171 182 213.5" stroke-width=".7" stroke-opacity=".7"/>
-  <path d="M141 216C156 222 172 220 186 212" stroke-width="1.7"/>
-  <path d="M141.5 211.5C156 217 171 215.5 183.5 208.5" stroke-width=".7" stroke-opacity=".7"/>
-  <path d="M150 104C150 140 151 180 153 214M158 104C160 140 163 180 167 216" stroke-width=".6" stroke-opacity=".3"/>
-  <path d="M137 281C158 283 180 283 199.5 281.5" stroke-width="1.8"/>
-  <path d="M137.5 276.5C158 278.5 179 278.5 197.5 277" stroke-width=".7" stroke-opacity=".7"/>
+  <path d="M144.6 73.4C148.8 70.2 154.8 68.6 162 68.6C169.2 68.6 175.2 70.2 179.4 73.4" stroke-width="1" stroke-opacity=".85"/>
+  <path d="M146.4 77.6C150.2 75.2 155.6 74 162 74C168.4 74 173.8 75.2 177.6 77.6" stroke-width=".45" stroke-opacity=".45"/>
+  <path d="M143.2 135.5C149.4 137.4 155.7 138.3 162 138.3C168.3 138.3 174.6 137.4 180.8 135.5" stroke-width="1.5" stroke-opacity=".9"/>
+  <path d="M143.6 131.4C149.7 133.2 155.9 134.1 162 134.1C168.1 134.1 174.3 133.2 180.4 131.4" stroke-width=".5" stroke-opacity=".45"/>
+  <path d="M150 140C147.6 180 144 228 137 272M174 140C177 180 181.5 228 189 272" stroke-width=".55" stroke-opacity=".26"/>
+  <path d="M158 140C157.6 186 157 234 156 278M166.5 140C167 186 167.6 234 168.6 278" stroke-width=".45" stroke-opacity=".18"/>
+  <path d="M124.5 283C142 289 166 290.5 186 288.5C193 287.8 199 286.4 204 284.5" stroke-width="1.5"/>
+  <path d="M126.5 278C143 283.6 166 285 185 283C191.5 282.3 197 281 202 279.4" stroke-width=".5" stroke-opacity=".45"/>
+  <path d="M128 283.5q4.2 -6.5 8.4 0q4.2 -6.5 8.4 0q4.2 -6.5 8.4 0q4.2 -6.5 8.4 0q4.2 -6.5 8.4 0q4.2 -6.5 8.4 0q4.2 -6.5 8.4 0q4.2 -6.5 8.4 0" stroke-width=".55" stroke-opacity=".55"/>
 </g>
-<g filter="url(#silRim)" fill="url(#silG)">
-  <path d="M131 89C137 97 141 110 142 122C143 134 143.5 146 145 157C146.5 160 147.5 163 146 165.5C144.5 168 140.5 167.5 139 164C137.5 158 136.5 146 136 134C135.5 120 133 108 127 97Z"/>
-  <path d="M141 100C138 106 136.5 116 136 128C135.5 140 135.5 150 136 157C135 160 134.5 163 136.5 166C138.5 168.5 141.5 167 141.5 164C141.5 154 142 142 142.5 132C143 120 144 110 146.5 103Z"/>
+<path d="M179.4 133.5C183.4 131 186.6 131.6 187.4 134.4C188.2 137.2 185.6 139.4 181.6 138.4C184.8 141 184.6 144.2 181.8 144.8C179 145.4 177.4 142.6 178.4 138.2Z" fill="#d6b25e" fill-opacity=".75"/>
+<g fill="#ffe8bd" fill-opacity=".6"><circle cx="152" cy="168" r=".75"/><circle cx="170" cy="160" r=".65"/><circle cx="147" cy="200" r=".75"/><circle cx="166" cy="196" r=".65"/><circle cx="180" cy="208" r=".75"/><circle cx="142" cy="238" r=".65"/><circle cx="162" cy="232" r=".75"/><circle cx="186" cy="246" r=".65"/><circle cx="150" cy="262" r=".6"/><circle cx="176" cy="268" r=".7"/><circle cx="158" cy="214" r=".6"/></g>
+<g fill="#fff4dc"><circle cx="156.8" cy="58.4" r=".85"/><circle cx="159.6" cy="60" r=".85"/><circle cx="162.6" cy="60.6" r=".85"/><circle cx="165.6" cy="60" r=".85"/><circle cx="168.4" cy="58.4" r=".85"/><circle cx="162.6" cy="64.4" r="1.15"/><circle cx="153.2" cy="47.6" r=".9"/><circle cx="152.9" cy="51" r=".75"/></g>
+
+<!-- a small cascading bouquet in her outer hand -->
+<g fill="none" stroke="#d6b25e" stroke-opacity=".75" stroke-linecap="round" stroke-width=".7">
+  <path d="M191 158C193 168 194 178 193 188M194 158C197.5 167 200 176 200.5 185M188.5 159C188 168 186.8 176 184.5 183"/>
 </g>
-<g transform="rotate(-9 162 86)" fill="#fff4dc"><circle cx="171.45" cy="82.58" r="1.75"/><circle cx="171.57" cy="84.61" r="1.75"/><circle cx="171.10" cy="86.61" r="1.75"/><circle cx="170.06" cy="88.45" r="1.75"/><circle cx="168.53" cy="90.01" r="1.75"/><circle cx="166.59" cy="91.20" r="1.75"/><circle cx="164.37" cy="91.95" r="1.75"/><circle cx="162.00" cy="92.20" r="1.75"/><circle cx="159.63" cy="91.95" r="1.75"/><circle cx="157.41" cy="91.20" r="1.75"/><circle cx="155.47" cy="90.01" r="1.75"/><circle cx="153.94" cy="88.45" r="1.75"/><circle cx="152.90" cy="86.61" r="1.75"/><circle cx="152.43" cy="84.61" r="1.75"/><circle cx="152.55" cy="82.58" r="1.75"/><circle cx="173.46" cy="87.63" r="1.45"/><circle cx="171.93" cy="90.16" r="1.45"/><circle cx="169.66" cy="92.25" r="1.45"/><circle cx="166.83" cy="93.73" r="1.45"/><circle cx="163.65" cy="94.50" r="1.45"/><circle cx="160.35" cy="94.50" r="1.45"/><circle cx="157.17" cy="93.73" r="1.45"/><circle cx="154.34" cy="92.25" r="1.45"/><circle cx="152.07" cy="90.16" r="1.45"/><circle cx="150.54" cy="87.63" r="1.45"/><circle cx="156.5" cy="96.0" r="1.5"/><circle cx="156.0" cy="100.0" r="1.5"/><circle cx="155.8" cy="104.0" r="1.5"/><circle cx="167.5" cy="96.0" r="1.5"/><circle cx="168.0" cy="100.0" r="1.5"/><circle cx="168.2" cy="104.0" r="1.5"/></g>
+<g fill="#ffe8bd" fill-opacity=".8"><circle cx="187.5" cy="155" r="2.1"/><circle cx="192.4" cy="154.2" r="2.4"/><circle cx="196.8" cy="156.2" r="1.9"/><circle cx="190" cy="159.4" r="2"/><circle cx="195" cy="160.4" r="1.7"/><circle cx="193.2" cy="188" r="1.4"/><circle cx="200.8" cy="185.4" r="1.2"/><circle cx="184.2" cy="183" r="1.2"/><circle cx="197.6" cy="174" r="1"/><circle cx="188" cy="172" r="1"/></g>
+
+<!-- the floor they stand on, and a few drifting sparkles -->
+<path d="M22 291H226" stroke="url(#floorG)" stroke-width="1.2" fill="none"/>
+<ellipse cx="124" cy="291" rx="92" ry="5" fill="url(#glowG)"/>
+<g fill="#ffd590">
+  <use href="#spk" transform="translate(42 118) scale(.85)" opacity=".7"/>
+  <use href="#spk" transform="translate(26 192) scale(.6)" opacity=".5"/>
+  <use href="#spk" transform="translate(60 44) scale(.7)" opacity=".6"/>
+  <use href="#spk" transform="translate(126 30) scale(.95)" opacity=".75"/>
+  <use href="#spk" transform="translate(150 16) scale(.5)" opacity=".45"/>
+  <use href="#spk" transform="translate(200 34) scale(.75)" opacity=".65"/>
+  <use href="#spk" transform="translate(222 110) scale(.6)" opacity=".5"/>
+  <use href="#spk" transform="translate(234 196) scale(.65)" opacity=".5"/>
+  <use href="#spk" transform="translate(14 256) scale(.5)" opacity=".4"/>
+  <use href="#spk" transform="translate(36 70) scale(.55)" opacity=".45"/>
+</g>
 </svg>
     </div>
     <div class="ground">
@@ -799,7 +844,7 @@ const CONFIG = {
   ],
 
   // Wedding start in India time (+05:30), so guests abroad see the right countdown too
-  weddingDate: "2026-12-14T06:00:00+05:30",
+  weddingDate: "2026-12-14T10:00:00+05:30",
   timeZone: "Asia/Kolkata",
   durationHours: 3,
   rsvpBy: "",              // e.g. "30 November 2026" (leave empty to hide)
@@ -816,14 +861,6 @@ const CONFIG = {
     mapQuery: "Maravar Makkal Mandram, Chinnamanur, Tamil Nadu 625515"
   },
 
-  // icon can be "rings", "lantern" or "star". Add more events by copying the line.
-  events: [
-    { icon: "rings", title: "Wedding Ceremony", date: "Scratch golden heart to reveal date", time: "", place: "Maravar Makkal Mandram, Chinnamanur", note: "" }
-  ],
-
-  // null hides it, or e.g. { text: "Traditional wear", colors: ["#4b2a86", "#d6b25e"] }
-  dressCode: null,
-
   // Your photos are stored inside this file (in the PHOTOS script just above this one).
   // You can also use a file next to this page, e.g. { src: "photos/trip.jpg", caption: "..." }.
   // focus = the part of the photo that stays in view inside the arch frame (left% top%).
@@ -833,7 +870,7 @@ const CONFIG = {
   ],
 
   // Optional: path or URL to an mp3. Leave empty for the built-in music box tune.
-  musicUrl: "/Kingdom Dance (From _Tangled__Score)_74_140.mp3"
+  musicUrl: "/Users/thalakku-13138/Downloads/Kingdom Dance (From _Tangled__Score)_74_140.mp3"
 };
 
 /* =========================================================
@@ -842,6 +879,23 @@ const CONFIG = {
 const $ = (id) => document.getElementById(id);
 const R = Math.random;
 const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+/* Gentle haptics for the big moments. Phones only: desktops and browsers
+   without the Vibration API simply ignore it, and we stay silent for guests
+   who asked for reduced motion. Patterns are short so they feel like a
+   heartbeat, never a buzz. */
+const HAPTICS = {
+  tap: 10,                    // first touch on the golden heart
+  open: [18, 70, 34],         // the doors part
+  reveal: [14, 55, 14, 55, 30], // the date appears
+  meet: [10, 80, 10],         // the two lanterns find each other
+  sent: [22, 70, 42]          // the RSVP goes out
+};
+const canBuzz = !reduceMotion && typeof navigator !== "undefined" && typeof navigator.vibrate === "function";
+function buzz(kind) {
+  if (!canBuzz) return;
+  try { navigator.vibrate(HAPTICS[kind] || HAPTICS.tap); } catch (e) { /* ignore */ }
+}
 const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const target = new Date(CONFIG.weddingDate);
 const initial = (s) => (String(s).trim()[0] || "").toUpperCase();
@@ -943,7 +997,6 @@ if (!CONFIG.rsvpBy) $("rsvpBy").hidden = true;
 if (!CONFIG.hashtag) $("hashtag").hidden = true;
 if (!String(CONFIG.whatsappNumber || "").replace(/\D/g, "")) $("rsvp").hidden = true;
 
-
 document.querySelectorAll(".frame").forEach((f) => f.insertAdjacentHTML("afterbegin",
   ["tl", "tr", "bl", "br"].map((c) => `<svg class="corner ${c}" aria-hidden="true"><use href="#corner"/></svg>`).join("")));
 
@@ -951,9 +1004,6 @@ const upAmPm = (s) => s.replace(/\b(am|pm)\b/i, (m) => m.toUpperCase());
 $("dDay").textContent = target.toLocaleDateString("en-IN", { day: "numeric", timeZone: TZ });
 $("dMon").textContent = target.toLocaleDateString("en-IN", { month: "long", year: "numeric", timeZone: TZ });
 $("dTime").textContent = `${target.toLocaleDateString("en-IN", { weekday: "long", timeZone: TZ })}, ${upAmPm(target.toLocaleTimeString("en-IN", { hour: "numeric", minute: "2-digit", timeZone: TZ }))}`;
-
-
-
 
 /* Venue */
 const mapQ = encodeURIComponent(CONFIG.venue.mapQuery || `${CONFIG.venue.name}, ${CONFIG.venue.address}`);
@@ -1051,6 +1101,7 @@ $("rsvpForm").addEventListener("submit", (e) => {
   $("thanksText").textContent = `${yes ? "We can't wait to see you" : "Thank you for letting us know"}, ${name}. Your reply has opened in WhatsApp. Tap send there to confirm it.`;
   $("rsvpForm").hidden = true;
   $("thanks").hidden = false;
+  buzz("sent");
   window.open(url, "_blank", "noopener");
 });
 $("editReply").addEventListener("click", () => { $("thanks").hidden = true; $("rsvpForm").hidden = false; });
@@ -1298,7 +1349,7 @@ function updatePair(t) {
     pairMet = met;
     pairEls.forEach((el) => el.classList.toggle("met", met));
     $("ending").classList.toggle("met", met);
-    if (met && document.body.classList.contains("opened")) burst(W / 2, meetY - s * .2, 38, .5);
+    if (met && document.body.classList.contains("opened")) { burst(W / 2, meetY - s * .2, 38, .5); buzz("meet"); }
   }
 }
 buildPair();
@@ -1406,8 +1457,9 @@ function doReveal() {
   $("afterReveal").hidden = false;
   const r = heartEl.getBoundingClientRect();
   burst(r.left + r.width / 2, r.top + r.height * .45);
+  buzz("reveal");
 }
-sc.addEventListener("pointerdown", (e) => { heartEl.classList.add("touched"); scratching = true; lastPt = null; sc.setPointerCapture(e.pointerId); scratchTo(e); });
+sc.addEventListener("pointerdown", (e) => { heartEl.classList.add("touched"); scratching = true; lastPt = null; sc.setPointerCapture(e.pointerId); if (!revealed) buzz("tap"); scratchTo(e); });
 sc.addEventListener("pointermove", (e) => { if (scratching && !revealed) scratchTo(e); });
 const endScratch = () => { scratching = false; lastPt = null; checkReveal(); };
 sc.addEventListener("pointerup", endScratch);
@@ -1528,6 +1580,7 @@ function openInvite() {
   const intro = $("intro");
   if (intro.classList.contains("opening")) return;
   intro.classList.add("opening");
+  buzz("open");
   Music.start(); setMusicUI(true);
   const t = reduceMotion ? [0, 0, 200, 900] : [420, 900, 1500, 2700];
   setTimeout(() => intro.classList.add("open"), t[0]);
