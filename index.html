@@ -338,6 +338,23 @@ body.opened #music{display:flex}
 #music span:nth-child(3){animation-delay:-.7s}
 @keyframes eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
 
+/* Release a lantern */
+#wish{position:fixed;left:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:40;width:50px;height:50px;border-radius:50%;
+  border:1px solid var(--line);background:rgba(12,7,28,.78);display:none;align-items:center;justify-content:center;cursor:pointer;
+  color:var(--gold);box-shadow:0 0 24px rgba(214,178,94,.18);transition:color .3s ease,box-shadow .3s ease,transform .3s ease}
+body.opened #wish{display:flex}
+#wish svg{width:24px;height:24px;display:block}
+#wish[aria-pressed=true]{color:var(--gold-hi);box-shadow:0 0 30px rgba(255,205,130,.5);transform:translateY(-2px)}
+#wish[aria-pressed=true] svg{animation:lanternBob 2.4s ease-in-out infinite}
+@keyframes lanternBob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+body.wishing{cursor:crosshair}
+#wishHint{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom));z-index:41;transform:translateX(-50%);
+  max-width:min(88vw,340px);padding:.55rem 1.1rem;border-radius:999px;text-align:center;font-style:italic;font-size:1rem;
+  color:var(--gold-hi);background:rgba(12,7,28,.86);border:1px solid var(--line);box-shadow:0 0 24px rgba(214,178,94,.16);
+  opacity:0;pointer-events:none;transition:opacity .45s ease,transform .45s ease}
+#wishHint.show{opacity:1;transform:translateX(-50%) translateY(-4px)}
+@media (prefers-reduced-motion:reduce){#wish{display:none !important}}
+
 /* Two lanterns with the couple's initials */
 .pair{position:fixed;left:0;top:0;z-index:3;pointer-events:none;opacity:0;transition:opacity 1.6s ease 1s;will-change:transform}
 body.opened .pair{opacity:1}
@@ -537,6 +554,13 @@ body.opened .pair{opacity:1}
 <div class="pair" id="pairA" aria-hidden="true"><span></span></div>
 <div class="pair" id="pairB" aria-hidden="true"><span></span></div>
 <button id="music" type="button" aria-label="Background music" aria-pressed="false"><span></span><span></span><span></span></button>
+<button id="wish" type="button" aria-label="Release a lantern into the sky" aria-pressed="false">
+  <svg viewBox="0 0 24 24" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M7.5 6h9l-1.4 12h-6.2z"/><path d="M9 18h6"/><path d="M12 2.5V5"/>
+    <path d="M12 15.5c-1.1-1.1-1.1-2.5 0-3.9 1.1 1.4 1.1 2.8 0 3.9z" fill="currentColor" stroke="none" opacity=".7"/>
+  </svg>
+</button>
+<p id="wishHint" role="status" aria-live="polite"></p>
 <canvas id="fx" aria-hidden="true"></canvas>
 
 <main inert>
@@ -1270,10 +1294,12 @@ requestAnimationFrame(drawSky);
 /* Gold particles above the page */
 const GOLDS = ["#fff0bf", "#f2d68b", "#d6b25e", "#b8903c", "#ffe2a0"];
 let parts = [], fxOn = false, fxLast = 0;
-function addParts(list) { parts.push(...list); if (!fxOn) { fxOn = true; fxLast = 0; requestAnimationFrame(fxLoop); } }
+function kickFx() { if (!fxOn) { fxOn = true; fxLast = 0; requestAnimationFrame(fxLoop); } }
+function addParts(list) { parts.push(...list); kickFx(); }
 function fxLoop(t) {
   const dt = fxLast ? Math.min(3, (t - fxLast) / 16.667) : 1; fxLast = t;
   fctx.clearRect(0, 0, W, H);
+  drawWishes(t, dt);
   parts = parts.filter((p) => p.life > 0);
   for (const p of parts) {
     p.vy += p.g * dt; p.vx *= .985; p.x += p.vx * dt; p.y += p.vy * dt; p.rot += p.vr * dt; p.life -= p.decay * dt;
@@ -1289,7 +1315,8 @@ function fxLoop(t) {
     }
   }
   fctx.globalAlpha = 1;
-  if (parts.length) requestAnimationFrame(fxLoop); else { fxOn = false; fctx.clearRect(0, 0, W, H); }
+  if (parts.length || wishes.length) requestAnimationFrame(fxLoop);
+  else { fxOn = false; fctx.clearRect(0, 0, W, H); }
 }
 const flake = (x, y) => ({ x, y, vx: (R() - .5) * 1.6, vy: -R() * 1.2, g: .11, rot: R() * 6.28, vr: (R() - .5) * .35, life: 1, decay: .014 + R() * .01, size: 2 + R() * 3.2, color: GOLDS[R() * GOLDS.length | 0] });
 function burst(x, y, n = 110, power = 1) {
@@ -1298,6 +1325,110 @@ function burst(x, y, n = 110, power = 1) {
     const a = R() * 6.283, v = (2 + R() * 6.5) * power, star = R() < .28;
     return { x, y, vx: Math.cos(a) * v, vy: Math.sin(a) * v - 2.2, g: .075, rot: R() * 6.28, vr: (R() - .5) * .25, life: 1, decay: .008 + R() * .008, size: star ? 10 + R() * 14 : 2.5 + R() * 3.5, color: GOLDS[R() * GOLDS.length | 0], star };
   }));
+}
+
+/* =========================================================
+   A lantern of your own: tap the sky and one lifts away,
+   carrying a wish for the couple up past the stars
+   ========================================================= */
+let wishes = [], wishing = false, wishCount = 0, hintTimer = null;
+const wishBtn = $("wish"), wishHint = $("wishHint");
+
+function sayHint(text, hold = 3600) {
+  clearTimeout(hintTimer);
+  wishHint.textContent = text;
+  wishHint.classList.add("show");
+  if (hold) hintTimer = setTimeout(() => wishHint.classList.remove("show"), hold);
+}
+
+function releaseWish(x, y) {
+  if (reduceMotion || wishes.length > 24) return;
+  const size = 26 + R() * 16;
+  wishes.push({
+    x, y, size,
+    rise: .55 + R() * .35,          // upward drift, pixels per frame
+    drift: (R() - .5) * .35,        // slow sideways wander
+    sway: 5 + R() * 9, per: 2400 + R() * 2600, ph: R() * 6.283,
+    fl: R() * 6.283,                // flame flicker offset
+    spin: (R() - .5) * .0006,
+    born: 0, life: 1, fade: 0,
+    puff: 0
+  });
+  wishCount++;
+  kickFx();
+  buzz("tap");
+  addParts(Array.from({ length: 10 }, () => flake(x + (R() - .5) * size, y + size * .4)));
+}
+
+function drawWishes(t, dt) {
+  if (!wishes.length) return;
+  for (const L of wishes) {
+    if (!L.born) L.born = t;
+    const age = (t - L.born) / 1000;
+    L.y -= L.rise * dt;
+    L.x += L.drift * dt;
+    // fade out as it nears the top of the sky
+    if (L.y < H * .18) L.fade += .006 * dt;
+    L.life = Math.max(0, 1 - L.fade);
+    // the occasional ember trailing behind
+    L.puff += dt;
+    if (L.puff > 26 && L.life > .35) { L.puff = 0; addParts([flake(L.x, L.y + L.size * .5)]); }
+
+    const x = L.x + Math.sin(t / L.per + L.ph) * L.sway;
+    const y = L.y;
+    const s = L.size;
+    const fl = .86 + .14 * Math.sin(t / 150 + L.fl) * Math.sin(t / 380 + L.fl * 1.7);
+    const grow = Math.min(1, age / .45);          // a small pop as it leaves your hand
+    const ds = s * (.6 + .4 * grow);
+    const alpha = L.life * (.9 + .1 * fl) * grow;
+
+    const hs = ds * 4.2;
+    fctx.globalCompositeOperation = "lighter";
+    fctx.globalAlpha = alpha * .5 * fl;
+    fctx.drawImage(S.halo, x - hs / 2, y - hs / 2 + ds * .25, hs, hs);
+    fctx.globalCompositeOperation = "source-over";
+    fctx.globalAlpha = alpha;
+    const sp = ds < 24 ? S.l[1] : S.l[2];
+    const dw = ds * sp.rw, dh = ds * sp.rh;
+    fctx.save();
+    fctx.translate(x, y);
+    fctx.rotate(Math.sin(t / L.per + L.ph) * .06);
+    fctx.drawImage(sp.c, -dw / 2, -dh / 2, dw, dh);
+    fctx.restore();
+  }
+  fctx.globalAlpha = 1;
+  wishes = wishes.filter((L) => L.life > 0 && L.y > -L.size * 4);
+}
+
+/* The sky is listening from the moment the doors open, so a guest can send
+   a lantern up without discovering a button first. The button is there to
+   turn it off again if they would rather just read. */
+function setWishing(on, announce = true) {
+  if (reduceMotion) return;
+  wishing = on;
+  wishBtn.setAttribute("aria-pressed", String(on));
+  wishBtn.setAttribute("aria-label", on ? "Stop releasing lanterns" : "Release a lantern into the sky");
+  document.body.classList.toggle("wishing", on);
+  if (!announce) return;
+  if (on) sayHint(wishCount ? "Tap the sky again" : "Tap the sky to send up a lantern");
+  else { clearTimeout(hintTimer); wishHint.classList.remove("show"); }
+}
+
+if (!reduceMotion) {
+  setWishing(true, false);
+  wishBtn.addEventListener("click", (e) => { e.stopPropagation(); setWishing(!wishing); });
+
+  // While the sky is listening, a tap anywhere that isn't a control sends one up.
+  document.addEventListener("pointerdown", (e) => {
+    if (!wishing || !document.body.classList.contains("opened")) return;
+    if (e.target.closest("button, a, input, textarea, select, label, #scratch, .slides")) return;
+    releaseWish(e.clientX, e.clientY);
+    sayHint(wishCount === 1
+      ? "Your lantern is on its way"
+      : wishCount < 5 ? "Another one rises" : "The sky is full of your wishes");
+  });
+
+  addEventListener("keydown", (e) => { if (e.key === "Escape" && wishing) setWishing(false); });
 }
 
 /* =========================================================
@@ -1587,6 +1718,7 @@ function openInvite() {
   setTimeout(() => {
     document.body.classList.remove("locked");
     document.body.classList.add("opened");
+    if (!reduceMotion) sayHint("Tap the sky to send up a lantern", 5200);
     document.querySelector("main").removeAttribute("inert");
   }, t[1]);
   setTimeout(() => intro.classList.add("fade"), t[2]);
