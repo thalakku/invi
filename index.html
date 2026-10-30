@@ -24,7 +24,7 @@
   --script:'Chorus','Apple Chancery','URW Chancery L',cursive;
   --damask:none;
   --noise:none;
-  --sealSize:clamp(110px,min(34vw,24vh),172px);
+  --sealSize:clamp(148px,min(44vw,31vh),224px);
   --sealY:62%;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -368,9 +368,10 @@ body.opened .pair{opacity:1}
   background:radial-gradient(circle,rgba(255,206,130,.42),rgba(255,160,80,.14) 38%,transparent 68%);animation:flick 3.2s ease-in-out infinite;transition:width 1s ease}
 .pair.met::before{width:470%}
 .pair canvas{position:relative;z-index:1;display:block}
-.pair span{position:absolute;left:0;right:0;top:50%;z-index:2;text-align:center;line-height:1;transform:translateY(-40%);font-family:'Monogram',var(--script);color:rgba(100,34,6,.78);mix-blend-mode:multiply;font-weight:400}
+.pair span{position:absolute;left:0;right:0;top:50%;z-index:2;text-align:center;line-height:1;transform:translateY(-40%);color:rgba(100,34,6,.78);mix-blend-mode:multiply;font-weight:400}
 @keyframes flick{0%,100%{opacity:.8}50%{opacity:1}}
 @media (max-height:520px){
+  :root{--sealSize:clamp(110px,min(30vw,26vh),150px)}
   #introText{top:6%}
   #introText .invited,#introText .second,.door .lower{display:none}
   .door .ornament,.door .frieze,.door .drops{display:none}
@@ -948,8 +949,18 @@ document.documentElement.style.setProperty("--noise", svgUrl(
 
 const goldStops = `<stop offset="0" stop-color="#fff0bf"/><stop offset=".35" stop-color="#e2be6a"/><stop offset=".68" stop-color="#a47a2c"/><stop offset="1" stop-color="#f2d68b"/>`;
 
+/* Decorative monogram faces. The 'Monogram' face has a weak S and 'Chorus' has an
+   M that reads like an N, so pick the best decorative face per letter. */
+const WEAK_IN_MONOGRAM = "SJQXZ";
+const GLYPH_FONT = (ch) => (WEAK_IN_MONOGRAM.includes((ch || "").toUpperCase())
+  ? "Chorus, 'Apple Chancery', cursive"
+  : "Monogram, Chorus, 'Apple Chancery', cursive");
+/* Chorus renders optically smaller than Monogram at the same px size. */
+const GLYPH_SCALE = (ch) => (WEAK_IN_MONOGRAM.includes((ch || "").toUpperCase()) ? 1.18 : 1);
+
 function monogram(size, y, fill) {
-  return `<text x="100" y="${y}" text-anchor="middle" font-family="Monogram, Chorus, serif" font-size="${size}" fill="${fill}">${esc(I1)}<tspan font-family="Pagella, serif" font-style="italic" font-size="${(size * .4).toFixed(1)}" dx="${(size * .05).toFixed(1)}" dy="${(-size * .14).toFixed(1)}">&amp;</tspan><tspan dx="${(size * .05).toFixed(1)}" dy="${(size * .14).toFixed(1)}">${esc(I2)}</tspan></text>`;
+  const s1 = (size * GLYPH_SCALE(I1)).toFixed(1), s2 = (size * GLYPH_SCALE(I2)).toFixed(1);
+  return `<text x="100" y="${y}" text-anchor="middle" font-size="${size}" fill="${fill}"><tspan font-family="${GLYPH_FONT(I1)}" font-size="${s1}">${esc(I1)}</tspan><tspan font-family="Pagella, serif" font-style="italic" font-size="${(size * .4).toFixed(1)}" dx="${(size * .05).toFixed(1)}" dy="${(-size * .14).toFixed(1)}">&amp;</tspan><tspan font-family="${GLYPH_FONT(I2)}" font-size="${s2}" dx="${(size * .05).toFixed(1)}" dy="${(size * .14).toFixed(1)}">${esc(I2)}</tspan></text>`;
 }
 
 function blobPath(cx, cy, r, seed) {
@@ -976,7 +987,7 @@ function sealSVG(uid) {
     <circle cx="99" cy="99" r="68" fill="none" stroke="#ffd2e8" stroke-opacity=".2" stroke-width="1.4"/>
     <circle cx="100" cy="100" r="60" fill="none" stroke="url(#sg${uid})" stroke-width="1.6" stroke-dasharray=".1 5" stroke-linecap="round"/>
     <path d="M58 50Q100 24 142 50" fill="none" stroke="#ffd2e8" stroke-opacity=".16" stroke-width="4" stroke-linecap="round"/>
-    ${monogram(58, 118, `url(#sg${uid})`)}
+    ${monogram(54, 118, `url(#sg${uid})`)}
   </svg>`;
 }
 
@@ -1005,7 +1016,7 @@ function crestSVG(uid) {
     <circle cx="100" cy="100" r="56" fill="none" stroke="#d6b25e" stroke-opacity=".25" stroke-width=".8"/>
     <path d="M100 9l3 8.4 8.4 3-8.4 3-3 8.4-3-8.4-8.4-3 8.4-3z" fill="#fff0bf"/>
     <circle cx="100" cy="182" r="2.4" fill="#d6b25e"/><circle cx="92" cy="179" r="1.5" fill="#d6b25e"/><circle cx="108" cy="179" r="1.5" fill="#d6b25e"/>
-    ${monogram(62, 120, `url(#cg${uid})`)}
+    ${monogram(58, 120, `url(#cg${uid})`)}
   </svg>`;
 }
 
@@ -1470,8 +1481,10 @@ function buildPair() {
     sp.c.style.width = `${el._w}px`; sp.c.style.height = `${el._h}px`;
     el.prepend(sp.c);
     const letter = el.querySelector("span");
-    letter.textContent = k ? I2 : I1;
-    letter.style.fontSize = `${pairSize * .62}px`;
+    const ch = k ? I2 : I1;
+    letter.textContent = ch;
+    letter.style.fontFamily = GLYPH_FONT(ch);
+    letter.style.fontSize = `${pairSize * .62 * GLYPH_SCALE(ch)}px`;
   });
 }
 function updatePair(t) {
