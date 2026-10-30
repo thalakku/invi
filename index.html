@@ -1191,10 +1191,36 @@ function go(i) {
   slides.forEach((s, k) => s.classList.toggle("on", k === cur));
   dots.forEach((d, k) => d.classList.toggle("on", k === cur));
 }
-function autoplay() { clearInterval(autoTimer); if (!reduceMotion && slides.length > 1) autoTimer = setInterval(() => go(cur + 1), 5000); }
+let galleryVisible = false;
+function autoplay() {
+  clearInterval(autoTimer);
+  autoTimer = null;
+  if (galleryVisible && !reduceMotion && slides.length > 1) {
+    autoTimer = setInterval(() => go(cur + 1), 5000);
+  }
+}
 dots.forEach((d, i) => d.addEventListener("click", () => { go(i); autoplay(); }));
 $("prev").addEventListener("click", () => { go(cur - 1); autoplay(); });
 $("next").addEventListener("click", () => { go(cur + 1); autoplay(); });
+
+// Start the slideshow only when the gallery scrolls into view; pause it when leaving.
+if ("IntersectionObserver" in window) {
+  const galleryObserver = new IntersectionObserver((entries) => {
+    const entry = entries[0];
+    galleryVisible = entry.isIntersecting && entry.intersectionRatio >= 0.25;
+    autoplay();
+  }, { threshold: [0, 0.25] });
+  galleryObserver.observe($("gallery"));
+} else {
+  const checkGalleryVisibility = () => {
+    const rect = $("gallery").getBoundingClientRect();
+    galleryVisible = rect.top < window.innerHeight * 0.75 && rect.bottom > window.innerHeight * 0.25;
+    autoplay();
+  };
+  window.addEventListener("scroll", checkGalleryVisibility, { passive: true });
+  window.addEventListener("resize", checkGalleryVisibility);
+  checkGalleryVisibility();
+}
 let swipeX = null;
 $("slides").addEventListener("pointerdown", (e) => { swipeX = e.clientX; });
 $("slides").addEventListener("pointerup", (e) => {
@@ -1203,7 +1229,6 @@ $("slides").addEventListener("pointerup", (e) => {
 });
 if (!slides.length) $("gallery").hidden = true;
 if (slides.length < 2) { $("prev").hidden = true; $("next").hidden = true; }
-autoplay();
 
 /* RSVP */
 let guests = 1;
